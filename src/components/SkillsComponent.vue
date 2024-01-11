@@ -2,7 +2,14 @@
   <div class="hello">
     <div class="holder">
       <form @submit.prevent="addSkill">
-        <input type="text" placeholder="Enter a skill you have..." v-model="skill" />
+        <input
+          type="text"
+          placeholder="Enter a skill you have..."
+          v-model="skill"
+          v-validate="'min:5'"
+          name="skill"
+        />
+        <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
       </form>
       <ul>
         <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
@@ -15,25 +22,32 @@
 
 <script>
 export default {
-  name: 'SkillsComponent',
+  name: "SkillsComponent",
   data() {
     return {
       skills: [
-        {"skill": "Vue.js"},
-        {"skill": "Node.js"},
-        {"skill": "React.js"},
-        {"skill": "Nest.js"},
+        { skill: "Vue.js" },
+        { skill: "Node.js" },
+        { skill: "React.js" },
+        { skill: "Nest.js" },
       ],
-      skill: ''
-    }
+      skill: "",
+    };
   },
   methods: {
     addSkill() {
-      this.skills.push({ skill: this.skill });
-      this.skill = '';
-    }
-  }
-}
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.skills.push({ skill: this.skill })
+          this.skill = ""
+        } else {
+          console.log('Not valid')
+        }
+      })
+      
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -51,10 +65,10 @@ ul {
 ul li {
   padding: 20px;
   font-size: 1.3em;
-  background-color: #E0EDF4;
+  background-color: #e0edf4;
   border-left: 5px solid#3EB3F6;
   margin-bottom: 2px;
-  color: #3E5252;
+  color: #3e5252;
 }
 
 p {
@@ -73,7 +87,15 @@ input {
   padding: 20px;
   font-size: 1.3em;
   background-color: #323333;
-  color: #687F7F;
+  color: #687f7f;
   outline: none;
+}
+
+.alert {
+  background: #fdf2ce;
+  font-weight: bold;
+  display: inline-block;
+  padding: 5px;
+  margin-top: -20px;
 }
 </style>
