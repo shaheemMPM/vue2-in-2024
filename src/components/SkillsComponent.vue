@@ -9,7 +9,9 @@
           v-validate="'min:5'"
           name="skill"
         />
-        <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
+        <p class="alert" v-if="errors.has('skill')">
+          {{ errors.first("skill") }}
+        </p>
       </form>
       <ul>
         <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
@@ -38,13 +40,12 @@ export default {
     addSkill() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.skills.push({ skill: this.skill })
-          this.skill = ""
+          this.skills.push({ skill: this.skill });
+          this.skill = "";
         } else {
-          console.log('Not valid')
+          console.log("Not valid");
         }
-      })
-      
+      });
     },
   },
 };
