@@ -34,5 +34,12 @@ npm run build
 npm run lint
 ```
 
+### Caution
+- While installing some of the third party packages I had to use older version to not have any conflicts.
+eg: installation of vee-validate
+```
+npm i vee-validate@2.0.3
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
