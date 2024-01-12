@@ -9,15 +9,16 @@
           v-validate="'min:5'"
           name="skill"
         />
-        <p class="alert" v-if="errors.has('skill')">
-          {{ errors.first("skill") }}
-        </p>
+        <transition name="alert-in">
+          <p class="alert" v-if="errors.has('skill')">
+            {{ errors.first("skill") }}
+          </p>
+        </transition>
       </form>
       <ul>
         <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
       </ul>
-
-      <p>These are the skills you possess</p>
+      <p class="footer">These are the skills you possess</p>
     </div>
   </div>
 </template>
@@ -90,13 +91,38 @@ input {
   background-color: #323333;
   color: #687f7f;
   outline: none;
+  display: block;
 }
 
 .alert {
   background: #fdf2ce;
   font-weight: bold;
-  display: inline-block;
-  padding: 5px;
-  margin-top: -20px;
+  display: block;
+  padding: 10px;
+  margin: 0;
+}
+
+.footer {
+  margin: 0;
+}
+
+.alert-in-enter-active {
+  animation: bounce-in .5s;
+}
+
+.alert-in-leave-active {
+  animation: bounce-in .5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
