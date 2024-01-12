@@ -9,7 +9,10 @@
           v-validate="'min:5'"
           name="skill"
         />
-        <transition name="alert-in">
+        <transition
+          enter-active-class="animated flipInX"
+          leave-active-class="animated flipOutX"
+        >
           <p class="alert" v-if="errors.has('skill')">
             {{ errors.first("skill") }}
           </p>
@@ -54,6 +57,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import url("https://cdn.jsdelivr.net/npm/animate.css@3.5.1");
+
 .holder {
   background: #fff;
 }
@@ -104,25 +109,5 @@ input {
 
 .footer {
   margin: 0;
-}
-
-.alert-in-enter-active {
-  animation: bounce-in .5s;
-}
-
-.alert-in-leave-active {
-  animation: bounce-in .5s reverse;
-}
-
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 </style>
