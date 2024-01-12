@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <SkillsComponent />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+
+    <router-view />
   </div>
 </template>
 
 <script>
-import SkillsComponent from "./components/SkillsComponent.vue";
 
 export default {
-  name: "App",
-  components: {
-    SkillsComponent,
-  },
+  name: "App"
 };
 </script>
 
@@ -24,7 +25,7 @@ body {
   display: grid;
   grid-template-rows: auto;
   justify-items: center;
-  align-items: center;
+  padding-top: 50px;
 }
 
 body,
@@ -35,5 +36,19 @@ html {
 
 #app {
   width: 50%;
+}
+
+nav {
+  padding: 20px 20px 20px 0;
+}
+
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 3px;
+  color: rgb(0, 110, 255);
+  font-weight: bold;
+  margin-right: 15px;
 }
 </style>
