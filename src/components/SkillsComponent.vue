@@ -37,31 +37,31 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "SkillsComponent",
   data() {
     return {
-      skills: [
-        { skill: "Vue.js" },
-        { skill: "React.js" },
-      ],
       skill: "",
     };
   },
-  methods: {
-    addSkill() {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          this.skills.push({ skill: this.skill });
-          this.skill = "";
-        } else {
-          console.log("Not valid");
-        }
-      });
+  computed: {
+    skills() {
+      return this.$store.state.skills;
     },
-    removeSkill(index) {
-      this.skills.splice(index, 1);
-    }
+  },
+  methods: {
+    async addSkill() {
+      const result = await this.$validator.validateAll();
+      if (result) {
+        this.$store.dispatch("addSkill", this.skill);
+        this.skill = "";
+      } else {
+        console.log("Not valid");
+      }
+    },
+    ...mapActions(['removeSkill'])
   },
 };
 </script>
